@@ -6,14 +6,6 @@ param "chart-version" {
   default = ""
 }
 
-// param "install-mode" {
-//   default = "1" #1 update or 0 delete
-// }
-//
-// param "delete-mode" {
-//   default = "0" #1 update or 0 delete
-// }
-
 param "mode" {
   default = "install" #1 install/update or delete
 }
@@ -53,29 +45,6 @@ helm upgrade --force --recreate-pods --wait --version {{param `chart-version`}} 
 EOF
 }
 
-// task "delete" {
-//   check = "exit {{param `delete-mode`}}" #Skips apply flip to 1 to have apply run
-//   apply = "helm delete {{param `release-name`}} --purge --tiller-namespace {{param `tiller-namespace`}}"
-// }
-
-// task "delete-check" {
-//   check = <<EOF
-// if [ {{param `mode`}} = "delete" ]
-// then
-//     helm list {{param `release-name`}} --tiller-namespace {{param `tiller-namespace`}}  | grep -w {{param `release-name`}}
-// else
-//     exit 0
-// fi
-// EOF
-//   apply = "echo $?" #If this runs then theres no release to delete because that means a value 1 or the release was not found
-// }
-
-// task "echo" {
-//   check = "exit $(echo {{lookup `task.delete-check.status.stdout`}})"
-//   apply = "helm delete {{param `release-name`}} --purge --tiller-namespace {{param `tiller-namespace`}}"
-//   depends = ["task.delete-check"]
-// }
-
 task "delete" {
   check = <<EOF
 if [ {{param `mode`}} = "delete" ]
@@ -99,12 +68,3 @@ fi
 EOF
 
 }
-
-// task "delete" {
-//   check = <<EOF
-// if [ {{param `delete-mode`}} = 1] ; then
-// helm list {{param `release-name`}} --tiller-namespace {{param `tiller-namespace`}}  | grep {{param `release-name`}}
-// fi
-// EOF
-//   apply = "helm delete {{param `release-name`}} --purge --tiller-namespace {{param `tiller-namespace`}}"
-// }
