@@ -39,7 +39,6 @@ fi
 EOF
   apply = <<EOF
 set -x -v -e
-exit 1
 echo "kube-crew DEBUG"
 helm version --tiller-namespace {{param `tiller-namespace`}}
 echo "kube-crew DEBUG"
