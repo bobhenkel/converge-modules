@@ -29,6 +29,7 @@ param "values-file" {
 
 task "apply" {
   check = <<EOF
+set -x -v -e
 if [ {{param `mode`}} = "install" ]
 then
     exit 1
@@ -37,7 +38,7 @@ else
 fi
 EOF
   apply = <<EOF
-set -x -v
+set -x -v -e
 echo "kube-crew DEBUG"
 helm version --tiller-namespace {{param `tiller-namespace`}}
 echo "kube-crew DEBUG"
@@ -47,6 +48,7 @@ EOF
 
 task "delete" {
   check = <<EOF
+set -x -v -e
 if [ {{param `mode`}} = "delete" ]
 then
     helm list {{param `release-name`}} --tiller-namespace {{param `tiller-namespace`}}  | grep -w {{param `release-name`}}
@@ -59,6 +61,7 @@ else
 fi
 EOF
   apply = <<EOF
+set -x -v -e
 if [ {{param `mode`}} = "delete" ]
 then
   set -x -v
