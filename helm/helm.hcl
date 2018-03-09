@@ -38,7 +38,7 @@ else
 fi
 EOF
   apply = <<EOF
-set -x -v -e
+set -x -v
 echo "kube-crew DEBUG"
 helm version --tiller-namespace {{param `tiller-namespace`}}
 echo "kube-crew DEBUG"
