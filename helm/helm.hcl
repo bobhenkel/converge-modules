@@ -52,7 +52,7 @@ task "delete" {
 set -x -v -e
 if [ {{param `mode`}} = "delete" ]
 then
-    helm list {{param `release-name`}} --tiller-namespace {{param `tiller-namespace`}}  | grep -w ""
+    helm list {{param `release-name`}} --tiller-namespace {{param `tiller-namespace`}}  | grep -w {{param `release-name`}}
 EOF
   apply = <<EOF
 set -x -v -e
