@@ -52,7 +52,7 @@ task "delete" {
 set -x -v -e
 if [ {{param `mode`}} = "delete" ]
 then
-    if helm list {{param `release-name`}} --tiller-namespace bhenkel | grep -q {{param `release-name`}}; then
+    if helm list {{param `release-name`}} --tiller-namespace bhenkel | grep -q -w {{param `release-name`}}; then
        false
     else
        true
