@@ -48,6 +48,7 @@ EOF
 
 task "delete" {
   check = <<EOF
+#!/bin/bash
 set -x -v -e
 if [ {{param `mode`}} = "delete" ]
 then
