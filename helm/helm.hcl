@@ -55,8 +55,7 @@ then
     helm list {{param `release-name`}} --tiller-namespace {{param `tiller-namespace`}}  | grep -w {{param `release-name`}}
     if [ $? -eq 0 ]
     then
-       echo $?
-       exit 1
+       exit 0
     fi
 else
     exit 0
