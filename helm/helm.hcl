@@ -38,10 +38,8 @@ else
 fi
 EOF
   apply = <<EOF
-set -x -v
-echo "kube-crew DEBUG"
-helm version --tiller-namespace {{param `tiller-namespace`}}
-echo "kube-crew DEBUG"
+#!/bin/bash
+set -x -v -e
 helm upgrade --force --recreate-pods --version {{param `chart-version`}} --install {{param `release-name`}} {{param `chart`}} --tiller-namespace {{param `tiller-namespace`}} --namespace {{param `install-to-namespace`}} -f {{param `values-file`}}
 EOF
 }
@@ -60,6 +58,7 @@ then
 fi
 EOF
   apply = <<EOF
+#!/bin/bash
 set -x -v -e
 if [ {{param `mode`}} = "delete" ]
 then
