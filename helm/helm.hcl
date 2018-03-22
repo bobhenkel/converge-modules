@@ -55,7 +55,7 @@ then
     if helm list {{param `release-name`}} --tiller-namespace bhenkel | grep -q {{param `release-name`}}; then
        false
     else
-       exit 0
+       true
     fi
 fi
 EOF
