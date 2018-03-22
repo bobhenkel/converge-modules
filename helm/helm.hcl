@@ -52,9 +52,9 @@ set -x -v -e
 if [ {{param `mode`}} = "delete" ]
 then
     helm list {{param `release-name`}} --tiller-namespace {{param `tiller-namespace`}}
-    if [ $? -eq 1 ]
+    if [ $? -eq 0 ]
     then
-       exit 0
+       exit 1
     fi
 else
     exit 0
