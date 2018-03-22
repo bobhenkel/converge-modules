@@ -51,10 +51,10 @@ task "delete" {
 set -x -v -e
 if [ {{param `mode`}} = "delete" ]
 then
-    helm list {{param `release-name`}} --tiller-namespace {{param `tiller-namespace`}}  | grep -w {{param `release-name`}}
-    if [ $? -eq 0 ]
+    helm list {{param `release-name`}} --tiller-namespace {{param `tiller-namespace`}}
+    if [ $? -eq 1 ]
     then
-       exit 1
+       exit 0
     fi
 else
     exit 0
