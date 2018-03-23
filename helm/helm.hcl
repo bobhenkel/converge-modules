@@ -26,8 +26,9 @@ param "values-file" {
   default = ""
 }
 
-
-task "install" {
+switch "mode" {
+  case "eq `install` `{{param `mode`}}`" "install" {
+    task "install" {
   check = <<EOF
 set -x -v -e
 if [ {{param `mode`}} = "install" ]
@@ -43,8 +44,10 @@ set -x -v -e
 helm upgrade --force --recreate-pods --version {{param `chart-version`}} --install {{param `release-name`}} {{param `chart`}} --tiller-namespace {{param `tiller-namespace`}} --namespace {{param `install-to-namespace`}} -f {{param `values-file`}}
 EOF
 }
+  }
 
-task "delete" {
+  case "eq `delete` `{{param `mode`}}`" "delete {
+    task "delete" {
   check = <<EOF
 #!/bin/bash
 set -x -v -e
@@ -69,3 +72,12 @@ fi
 EOF
 
 }
+  }
+
+  default {
+    task.query "hello" {
+      query = "echo hello"
+    }
+  }
+}
+
