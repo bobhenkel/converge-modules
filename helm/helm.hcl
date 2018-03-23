@@ -46,7 +46,7 @@ EOF
   check = <<EOF
 #!/bin/bash
 set -x -v -e
-if helm list '^{{param `release-name`}}$' --tiller-namespace bhenkel | grep -q -w {{param `release-name`}}; then
+if helm list '^{{param `release-name`}}$' --tiller-namespace {{param `tiller-namespace`}} | grep -q -w {{param `release-name`}}; then
    false
 else
    true
