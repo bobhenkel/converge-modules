@@ -27,7 +27,7 @@ param "values-file" {
 }
 
 
-task "apply" {
+task "install" {
   check = <<EOF
 set -x -v -e
 if [ {{param `mode`}} = "install" ]
