@@ -46,7 +46,7 @@ EOF
 }
   }
 
-  case "eq `delete` `{{param `mode`}}`" "delete {
+  case "eq `delete` `{{param `mode`}}`" "delete" {
     task "delete" {
   check = <<EOF
 #!/bin/bash
@@ -80,4 +80,3 @@ EOF
     }
   }
 }
-
