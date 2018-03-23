@@ -31,12 +31,7 @@ switch "mode" {
     task "install" {
   check = <<EOF
 set -x -v -e
-if [ {{param `mode`}} = "install" ]
-then
-    exit 1
-else
-    exit 0
-fi
+exit 1
 EOF
   apply = <<EOF
 #!/bin/bash
@@ -51,13 +46,10 @@ EOF
   check = <<EOF
 #!/bin/bash
 set -x -v -e
-if [ {{param `mode`}} = "delete" ]
-then
-    if helm list '^{{param `release-name`}}$' --tiller-namespace bhenkel | grep -q -w {{param `release-name`}}; then
-       false
-    else
-       true
-    fi
+if helm list '^{{param `release-name`}}$' --tiller-namespace bhenkel | grep -q -w {{param `release-name`}}; then
+   false
+else
+   true
 fi
 EOF
   apply = <<EOF
@@ -72,11 +64,5 @@ fi
 EOF
 
 }
-  }
-
-  default {
-    task.query "hello" {
-      query = "echo hello"
-    }
   }
 }
